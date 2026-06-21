@@ -1,28 +1,47 @@
 import random
 
-beats = {'ROCK': 'SCISSORS', 'PAPER': 'ROCK', 'SCISSORS': 'PAPER'}
-game_options = list(beats.keys())
+def get_player_choice(options: list) -> str:
+    while True:
+        player_choice = input("\nRock, Paper or Scissors: ").upper()
+        
+        if player_choice in options:
+            return player_choice
+        else:
+            print("Invalid option!! Choose again")
 
-print("=" * 80)
-print("ROCK - PAPER - SCISSORS")
-print("=" * 80)
+def get_computer_choice(options: list) -> str:
+    return random.choice(options)
 
-while True:
-    player_choice = input("\nRock, Paper or Scissors: ").upper()
-    
-    if player_choice in game_options:
-        break
+def determine_winner(player, computer, rules):
+    if player == computer:
+        return "Draw!!"
+    elif rules[player] == computer:
+        return "Win!!"
     else:
-        print("Invalid option!! Choose again")
+        return "Loss!!"
 
-comp_choice = random.choice(game_options)
+def play_game():
+    beats = {'ROCK': 'SCISSORS', 'PAPER': 'ROCK', 'SCISSORS': 'PAPER'}
+    game_options = list(beats.keys())
 
-if player_choice == comp_choice:
-    print("\nDraw!!")
-elif beats[player_choice] == comp_choice:
-    print("\nYou Win!!")
-else:
-    print("\nYou Lose!!")
+    print("=" * 80)
+    print("ROCK - PAPER - SCISSORS")
+    print("=" * 80)
 
-print(f"\nPlayer: {player_choice}")
-print(f"Computer: {comp_choice}")
+    player_choice = get_player_choice(game_options)
+    computer_choice = get_computer_choice(game_options)
+    
+    result = determine_winner(player_choice, computer_choice, beats)
+
+    print()
+    print("=" * 80)
+    print(f"GAME RESULT: {result}")
+    print("=" * 80)
+
+    print("=" * 80)
+    print(f"Player: {player_choice}")
+    print(f"Computer: {computer_choice}")
+    print("=" * 80)
+
+if __name__ == "__main__":
+    play_game()
